@@ -9,35 +9,12 @@
 
 <style>
 
-body {
-
-	background-color
-}
-
-
-
-
-  
-.text{
-  margin-left:10px;
-display:inline-block;
-}
-
-  
-
-.image{
-      vertical-align: top;
-    display: inline-grid;
-}
-
-
 
 </style>
 
 
 
-
-
+<link rel="stylesheet" type="text/css" href="main.css">
 
 
 
@@ -65,28 +42,18 @@ function start() {
 //Initializes the Javascript client library 
 
 gapi.client.init({
-'apiKey': 'AIzaSyCgFZf1U1tOvHM1_zaviPr_hbjEoRZMYeI',
-//'path': 'https://www.googleapis.com/books/v1/volumes?q='+searchTarget 
-'path': 'https://www.googleapis.com/books/v1/volumes?'
-//https://www.googleapis.com/books/v1/volumes?q=flowers&projection=lite&key=AIzaSyCgFZf1U1tOvHM1_zaviPr_hbjEoRZMYeI
+'apiKey': 'AIzaSyCgFZf1U1tOvHM1_zaviPr_hbjEoRZMYeI'
+
 
 }).then(function() {
+
 //Initialize and make the API request
 return gapi.client.request({
-	
-  q: 'searchTarget',
-            maxResults: 40,
-            startIndex: '0'
-	//'path': 'https://www.googleapis.com/books/v1/volumes?q='+searchTarget
-
-  //'path': 'https://www.googleapis.com/books/v1/volumes?q='+searchTarget +'startIndex=0'+ 'maxResults=40'
-
-  //'path': 'https://www.googleapis.com/books/v1/volumes?q='+searchTarget 
-  
-
-});
+	'path': 'https://www.googleapis.com/books/v1/volumes?q='+searchTarget +'&maxResults=40&startIndex='+searchIndex// 
+})
 
 }) .then(function(response){
+
  data= response.result;
  //clearing out variables so they can hold new search information
 authors =[];
@@ -99,39 +66,42 @@ imageLinksDisplay =[]
 publishersDisplay =[]
 infoLinks =[]
 infoLinksDisplay=[]
+
  for (i=0;i<data.items.length; i++){
+// grabbing each property from data.items json and pushing it to it's respective array
+  titles.push(data.items[i].volumeInfo.title); 
 
-
-  titles.push(data.items[i].volumeInfo.title);
- 	authors.push( data.items[i].volumeInfo.authors);
- 	if(!data.items[i].volumeInfo.imageLinks)
- 		{imageLinks.push("No image available for this book.")}
+  if(!data.items[i].volumeInfo.authors) 
+  {authors.push("n/a")} 
+ 	else{authors.push( data.items[i].volumeInfo.authors);}  
+ 	if(!data.items[i].volumeInfo.imageLinks) // 
+ 		{imageLinks.push("404.png")}
  	else{imageLinks.push(data.items[i].volumeInfo.imageLinks.thumbnail); }
 
     if(!data.items[i].volumeInfo.publisher)
- 		{publishers.push("No publisher available for this book.")}
+ 		{publishers.push("n/a")}
  	else{publishers.push(data.items[i].volumeInfo.publisher); }
 
  	infoLinks.push(data.items[i].volumeInfo.infoLink);
-  
+    
    
-     
-
+     //dynamically inserts html to contain search results 
+    document.getElementById('SearchResults').innerHTML+="<div class='image'><img class ='imageLinksDisplay'></img></div><div class = 'text'><p class ='titlesDisplay'></p><p class ='authorsDisplay'> </p><p class ='publishersDisplay'></p><a class = 'infoLinksDisplay'  > <button>  Read More</button></a></div><hr /></div>";
     titlesDisplay = document.getElementsByClassName('titlesDisplay')
-    titlesDisplay[i].innerHTML = titles[i];
+    titlesDisplay[searchIndex].innerHTML = titles[i];
  	
- 	authorsDisplay = document.getElementsByClassName('authorsDisplay')
-    authorsDisplay[i].innerHTML = 'by:' + authors[i];
+ 	  authorsDisplay = document.getElementsByClassName('authorsDisplay')
+    authorsDisplay[searchIndex].innerHTML = 'by: ' + authors[i];
 
     publishersDisplay = document.getElementsByClassName('publishersDisplay')
-    publishersDisplay[i].innerHTML = 'published by: '+ publishers[i];
+    publishersDisplay[searchIndex].innerHTML = 'published by: '+ publishers[i];
 
     imageLinksDisplay = document.getElementsByClassName('imageLinksDisplay')
-    imageLinksDisplay[i].src = imageLinks[i];
+    imageLinksDisplay[searchIndex].src = imageLinks[i];
 
     infoLinksDisplay = document.getElementsByClassName('infoLinksDisplay')
-    infoLinksDisplay[i].href = infoLinks[i];
-
+    infoLinksDisplay[searchIndex].href = infoLinks[i];
+    searchIndex++;
     
  }
 	//console.log(response.result);
@@ -142,54 +112,53 @@ infoLinksDisplay=[]
 // load the javascriptclient library.
 	
 var searchTarget;
-
+var searchIndex;
  function startSearch() {
- 	
- 	searchTarget = document.getElementById('mySearch').value; //retrives the value of user input stores into searchTarget variable
- 	document.getElementById('searchtext').innerHTML = "Now searching for " + searchTarget; //displays what user is searching for
- 	gapi.load('client', start); //calls gapi function which calls start function
- 
+  searchIndex=0;
+  document.getElementById('SearchResults').innerHTML="";// search results acts as container we can clear easily before a new search
+   	searchTarget = document.getElementById('mySearch').value; //retrives the value of user input stores into searchTarget variable
+ 	document.getElementById('searchtext').innerHTML = "Search results for '" + searchTarget+"'"; //displays what user is searching for
+ 	gapi.load('client', start);  //calls gapi function which calls start function
+
 }
 
+window.onscroll = function(ev) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+       console.log("bottom");
+       gapi.load('client', start); //calls gapi function which calls start function
+    }
+};
  
-
 </script>
 
 
 
-<div> 
-<label for = 'booksearch'> Enter Book Search:</label>
+<div class = 'bookSearchBar'>
+<label > Enter Book Search:</label>
 <input type ='search' id= 'mySearch' placeholder = 'Search for something..'>
-<!--<textarea id='booksearch' name ='user_booksearch'></textarea> -->
-</div>
-<div class = 'button'>
-<!--<button  = 'submit'> Submit </button>-->
 
+
+<div class = 'button'>
 <button onclick = 'startSearch()'> Submit </button>
 </div>
-
+</div>
 <p id='searchtext'></p>
 
-<div class="image">
-  <img class ='imageLinksDisplay'></img>
-  <a class = "infoLinksDisplay"  > <button>  Read More</button></a>
+<div id='SearchResults'>
+<!-- 
+// Template of HTML dynamically inserted for each search result entry
+<div class='image'>.          
+<img class ='imageLinksDisplay'></img>
 </div>
-
-<div   class = "text">
+<div class = 'text'>
   <p class ='titlesDisplay'></p>
   <p class ='authorsDisplay'> </p>
   <p class ='publishersDisplay'></p>
+  <a class = 'infoLinksDisplay'  > 
+  <button>  Read More</button>
+</a></div><hr />
+-->
 </div>
-
-
-<p class ='titlesDisplay'></p>
-<p class ='authorsDisplay'></p>
-<p class ='publishersDisplay'></p>
-<img class ='imageLinksDisplay'></img><br>
-<a class = "infoLinksDisplay" > <button>Read More</button></a>
-
-
-
 
 
 
