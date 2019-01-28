@@ -4,11 +4,12 @@ Search for book content on the web from your browser. GoogleBookSearch uses Goog
 
 
 ## Technologies
-Combines Javascript, HTML, and CSS 
+Combines Javascript, HTML, and CSS
+ 
 Google Books API 
+
 HTTP request to Google Books API was made using the Gapi client.
 More on that [here](https://developers.google.com/books/docs/v1/getting_started)
-
 
 ## Setup
 
