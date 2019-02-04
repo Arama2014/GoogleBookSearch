@@ -17,7 +17,7 @@ To run locally
  
 `Git clone`         <https://github.com/Arama2014/GoogleBookSearch>
 
-To run GoogleBookSearch on a server, open up your terminal and cd into the folder where the html, css, and javascript program files are saved. Type the following command:
+Once you've cloned,  open up your terminal and cd into the folder where the html, css, and javascript program files are saved. Type the following command to run GoogleBookSearch on a server:
 
 `Python -m SimpleHTTPServer 1337 `
 
