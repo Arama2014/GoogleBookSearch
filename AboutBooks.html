@@ -1,71 +1,45 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
 
-	<title>AboutBooks</title>
+    <title>AboutBooks</title>
 
 
 
-<style>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
+    <script type="text/javascript" src="js/aboutBook.js"></script>
 
-</style>
-
-
-
-<link rel="stylesheet" type="text/css" href="main.css">
-
-<script type = "text/javascript" src = "aboutBook.js"></script>
-
-<script src= "https://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
 
 
 </head>
+
 <body>
-  
-<h1>Search Google Books</h1>
 
-<script>
-
-
- 
-</script>
+    <h1>Search Google Books</h1>
 
 
 
-<div class = 'bookSearchBar'>
-<label > Enter Book Search:</label>
-<input type ='search' id= 'mySearch' placeholder = 'Search for something..'>
+    <div class='bookSearchBar'>
+        <label> Enter Book Search:</label>
+        <input type='search' id='mySearch' placeholder='Search for something..'>
 
 
-<div class = 'button'>
-<button onclick = 'startSearch()'> Submit </button>
-</div>
-</div>
-<p id='searchtext'></p>
+        <div class='button'>
+            <button onclick='startSearch()'> Submit </button>
+        </div>
+    </div>
+    <p id='searchtext'></p>
 
-<div id='SearchResults'>
-<!-- 
-// Template of HTML dynamically inserted for each search result entry
-<div class='image'>.          
-<img class ='imageLinksDisplay'></img>
-</div>
-<div class = 'text'>
-  <p class ='titlesDisplay'></p>
-  <p class ='authorsDisplay'> </p>
-  <p class ='publishersDisplay'></p>
-  <a class = 'infoLinksDisplay'  > 
-  <button>  Read More</button>
-</a></div><hr />
--->
-</div>
+    <div id='SearchResults'>
+
+    </div>
+
+    <h1 id='Error' style="color:red;"></h1>
 
 
-
-
-<div> 
-
-</div>
 </body>
+
 </html>

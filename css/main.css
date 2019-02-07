@@ -1,0 +1,60 @@
+body {
+
+    background-color: white;
+}
+
+h1 {
+
+    font-family: Roboto;
+    text-align: center;
+}
+
+.bookSearchBar {
+
+
+    text-align: center;
+
+}
+
+button {
+
+    margin-top: 10px;
+}
+
+.titlesDisplay {
+    font-family: Roboto;
+    font-weight: 900;
+}
+
+.authorsDisplay {
+
+    font-weight: 500;
+}
+
+.publishersDisplay {
+    font-weight: 100;
+
+}
+
+.imageLinksDisplay {
+
+    float: left;
+    margin-right: 10px;
+    margin-left: 50px;
+    margin-bottom: 5px;
+    border: solid black 1px;
+    padding: 2px;
+}
+
+.text {
+
+    margin-left: 10px;
+    display: inline-block;
+}
+
+
+
+.image {
+    vertical-align: top;
+    display: inline-grid;
+}
